@@ -1,15 +1,24 @@
-/*
+/*******************************************************************************
 * Tic Tac Toe in Rust - By : Collette Stapley
-*/
+********************************************************************************/
 
 use std::io;
 
+/*******************************************************************************
+* Struct for the game board 
+********************************************************************************/
 struct Board {
     board: [String; 9]
 }
 
+/*******************************************************************************
+* This is the actual structre called Board, holds all necessary functions 
+********************************************************************************/
 impl Board {
 
+    /***************************************************************************
+    * Reset_Board: resets the board back to original starting number values 
+    ****************************************************************************/
     fn reset_board(&mut self) {
         let mut number:usize = 1;
         while number < 10 {
@@ -18,6 +27,9 @@ impl Board {
         }
     }
 
+    /***************************************************************************
+    * Update_Board: changes a slot in the board to the desired value
+    ****************************************************************************/
     fn update_board(&mut self, choice: String, number: String) {
         let trimmed = number.trim();
         match trimmed.parse::<usize>() {
@@ -26,6 +38,10 @@ impl Board {
     };  
     }
 
+    /***************************************************************************
+    * Game_Over: Checks the board for win/game ending conditions and returns the
+    * results.
+    ****************************************************************************/
     fn game_over(&mut self, turn: i8) -> String {
         let player : String;
         if turn % 2 == 0 {
@@ -67,6 +83,9 @@ impl Board {
         return String::from("HI")
     }
 
+    /***************************************************************************
+    * Display_board: displays the board
+    ****************************************************************************/
     fn display_board(&mut self) {
         print!("{} ", self.board[0]);
         let count : usize = 1;
@@ -83,6 +102,9 @@ impl Board {
     }
 }
 
+/*******************************************************************************
+* Get_Input: gets the users input
+********************************************************************************/
 fn get_input() -> String{
     let mut number = String::new();
     io::stdin()
@@ -91,6 +113,9 @@ fn get_input() -> String{
     return number;
 }
 
+/*******************************************************************************
+* Player_Turns: Keeps track of who's turn it is, and runs that turn accordingly.
+********************************************************************************/
 fn player_turns(turn: i8, b : &mut Board) -> i8 {
     if turn % 2 != 0 {
         print!("X's turn to choose a square (1-9): ");
@@ -106,6 +131,9 @@ fn player_turns(turn: i8, b : &mut Board) -> i8 {
     return turns
 }
 
+/*******************************************************************************
+* Options: Asks the user if they want to play again once a game is finished. 
+********************************************************************************/
 fn options() -> String {
     print!("Would you like to play again? y/n > ");
     let mut yes_no = String::new();
@@ -115,6 +143,9 @@ fn options() -> String {
     return yes_no
 }
 
+/*******************************************************************************
+* Main: runs the main loop of the game and initializes the structure. 
+********************************************************************************/
 fn main() {
     let mut b = Board{
         board: [String::from("1"), String::from("2"), String::from("3"), 
